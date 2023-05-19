@@ -1,0 +1,109 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://src/ui/dynamic_font/kenney_pixel_32.tres" type="DynamicFont" id=1]
+[ext_resource path="res://src/ui/HUD.gd" type="Script" id=2]
+[ext_resource path="res://src/ui/Life.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/ui/dynamic_font/kenney_pixel_square_16.tres" type="DynamicFont" id=4]
+[ext_resource path="res://src/ui/dynamic_font/kenney_pixel_16.tres" type="DynamicFont" id=5]
+
+[node name="HUD" type="CanvasLayer"]
+pause_mode = 2
+script = ExtResource( 2 )
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 10
+custom_constants/margin_top = 10
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 10
+
+[node name="ScoreLifeContainer" type="VBoxContainer" parent="MarginContainer"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 278.0
+margin_bottom = 502.0
+
+[node name="ScoreContainer" type="HBoxContainer" parent="MarginContainer/ScoreLifeContainer"]
+margin_right = 268.0
+margin_bottom = 24.0
+
+[node name="ScoreValue" type="Label" parent="MarginContainer/ScoreLifeContainer/ScoreContainer"]
+margin_right = 72.0
+margin_bottom = 24.0
+custom_fonts/font = ExtResource( 1 )
+text = "000000"
+
+[node name="LifeContainer" type="HBoxContainer" parent="MarginContainer/ScoreLifeContainer"]
+margin_top = 28.0
+margin_right = 268.0
+margin_bottom = 48.0
+
+[node name="Life" parent="MarginContainer/ScoreLifeContainer/LifeContainer" instance=ExtResource( 3 )]
+margin_right = 20.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 20, 20 )
+
+[node name="Life2" parent="MarginContainer/ScoreLifeContainer/LifeContainer" instance=ExtResource( 3 )]
+margin_left = 24.0
+margin_right = 44.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 20, 20 )
+
+[node name="Life3" parent="MarginContainer/ScoreLifeContainer/LifeContainer" instance=ExtResource( 3 )]
+margin_left = 48.0
+margin_right = 68.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 20, 20 )
+
+[node name="GameOverContainer" type="VBoxContainer" parent="MarginContainer"]
+visible = false
+margin_left = 10.0
+margin_top = 219.0
+margin_right = 278.0
+margin_bottom = 293.0
+size_flags_vertical = 4
+custom_constants/separation = 20
+
+[node name="Label" type="Label" parent="MarginContainer/GameOverContainer"]
+margin_right = 268.0
+margin_bottom = 24.0
+custom_fonts/font = ExtResource( 4 )
+text = "Game Over"
+align = 1
+
+[node name="RetryButton" type="Button" parent="MarginContainer/GameOverContainer"]
+margin_left = 84.0
+margin_top = 44.0
+margin_right = 184.0
+margin_bottom = 74.0
+rect_min_size = Vector2( 100, 30 )
+size_flags_horizontal = 4
+custom_fonts/font = ExtResource( 1 )
+text = "Retry"
+
+[node name="PauseContainer" type="VBoxContainer" parent="MarginContainer"]
+visible = false
+margin_left = 10.0
+margin_top = 235.0
+margin_right = 278.0
+margin_bottom = 276.0
+size_flags_vertical = 4
+custom_constants/separation = 5
+
+[node name="PauseLabel" type="Label" parent="MarginContainer/PauseContainer"]
+margin_right = 268.0
+margin_bottom = 24.0
+custom_fonts/font = ExtResource( 4 )
+text = "Paused"
+align = 1
+
+[node name="PauseDescriptionLabel" type="Label" parent="MarginContainer/PauseContainer"]
+margin_top = 29.0
+margin_right = 268.0
+margin_bottom = 41.0
+custom_fonts/font = ExtResource( 5 )
+text = "Press ESC to continue"
+align = 1
+
+[connection signal="pressed" from="MarginContainer/GameOverContainer/RetryButton" to="." method="_on_RetryButton_pressed"]
