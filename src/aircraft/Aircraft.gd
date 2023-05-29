@@ -22,37 +22,37 @@ var is_alive:= true
 var can_shoot := true
 
 func _physics_process(delta: float) -> void:
-	if not is_alive:
-		return
-	control(delta)
+  if not is_alive:
+    return
+  control(delta)
 
 func control(delta: float) -> void:
-	pass
+  pass
 
 func shoot() -> void:
-	pass
+  pass
 
 func hit(damage: float) -> void:
-	health -= damage
-	if health <= 0:
-		die()
-	else:
-		animation_player.play("damaged")
+  health -= damage
+  if health <= 0:
+    die()
+  else:
+    animation_player.play("damaged")
 
 func die() -> void:
-	is_alive = false
-	sprite.hide()
-	collider.set_deferred("disabled", true)
-	hit_collider.set_deferred("disabled", true)
-	
-	animation_player.play("explosion")
-	yield(animation_player,"animation_finished")
-	
-	queue_free()
+  is_alive = false
+  sprite.hide()
+  collider.set_deferred("disabled", true)
+  hit_collider.set_deferred("disabled", true)
+  
+  animation_player.play("explosion")
+  yield(animation_player,"animation_finished")
+  
+  queue_free()
 
 func _on_HitArea_body_entered(body):
-	if body.has_method("hit"):
-		body.hit(hit_damage)
+  if body.has_method("hit"):
+    body.hit(hit_damage)
 
 func _on_GunTimer_timeout():
-	can_shoot = true
+  can_shoot = true

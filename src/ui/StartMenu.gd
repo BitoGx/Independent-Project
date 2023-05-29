@@ -4,6 +4,8 @@ onready var start_menu_container = $StartMenuContainer
 onready var option = $Option
 onready var video = $Video
 onready var audio = $Audio
+onready var keybind = $Keybind
+
 
 
 func toggle_escape():
@@ -17,11 +19,13 @@ func show_and_hide(first,second):
 func _process(_delta):
   if Input.is_action_just_pressed("ui_cancel"):
     toggle_escape()
+  pass
 
 func _on_StartButton_pressed():
   toggle_escape()
   if get_tree().change_scene("res://src/levels/Level1.tscn") != OK:
     print ("An unexpected error occured when trying to switch to the Readme scene")
+  pass
 
 func _on_OptionButton_pressed():
   show_and_hide(option, start_menu_container)
@@ -34,6 +38,10 @@ func _on_AudioButton_pressed():
 
 func _on_VideoButton_pressed():
   show_and_hide(video, option)
+  
+func _on_KeybindButton_pressed():
+  
+  show_and_hide(keybind, option)
 
 func _on_BackFromOptionButton_pressed():
   show_and_hide(start_menu_container, option)
@@ -49,3 +57,12 @@ func _on_BackFromVideoButton_pressed():
 
 func _on_BackFromAudioButton_pressed():
   show_and_hide(option, audio)
+
+func _on_BackFromKeybindButton_pressed():
+  show_and_hide(option, keybind)
+
+func _on_UpBindButton_pressed():
+  var new_input = InputEventKey.new()
+  new_input.set_scancode(KEY_W)
+  InputMap.add_action("move_up")
+  InputMap.action_add_event("move_up",new_input)
